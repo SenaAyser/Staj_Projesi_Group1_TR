@@ -44,7 +44,8 @@ public class Parent {
         wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"), 0));
     }
 
-    public void waitUntilVisible(WebElement element) {
+    public void waitUntilVisible(WebElement element)
+    {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
@@ -57,6 +58,18 @@ public class Parent {
         JavascriptExecutor js = (JavascriptExecutor) GWD.getDriver();
         js.executeScript("arguments[0].scrollIntoView();", element);
     }
+
+    public void verifyCaontainsTextFunction(WebElement element , String value)
+    {
+
+        waitUntilVisible(element);
+        //wait.until(ExpectedConditions.textToBePresentInElement(element, value));
+        Assert.assertTrue(element.getText().toLowerCase().contains(value.toLowerCase()),"The text could'nt be  find ");
+
+    }
+
+
+
 
 
 }
