@@ -1,6 +1,6 @@
 package Pages;
 
-import Utilities.GWD;
+import Utilities.GeneralWD;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -14,49 +14,50 @@ import java.time.Duration;
 
 public class Parent {
 
-    WebDriverWait wait = new WebDriverWait(GWD.getDriver(), Duration.ofSeconds(30));
-
-    public void clickFunction(WebElement element) {
-
-        waitUntilClickable(element);
-        scrollToElement(element);
-        element.click();
+    WebDriverWait wait = new WebDriverWait(GeneralWD.getDriver(), Duration.ofSeconds(30));
+    public void sendKeysFunction(WebElement element, String value)
+    {
+        waitUntilVisible(element); // gözükene kadar bekle
+        scrollToelement(element);  // elemente kadar scroll yap (javascriptexecuter)
+        element.clear();           //        temizle  (clear)
+        element.sendKeys(value);//        değeri gönder (sendKeys)
     }
 
-    public void sendKeysFunction(WebElement element, String value) {
-        waitUntilVisible(element);
-        scrollToElement(element);
-        element.clear();
-        element.sendKeys(value);
-
+    public void clickFunction(WebElement element)
+    {
+        waitUntilClickable(element); // Clickable olana kadar bekle
+        scrollToelement(element);  // elemente kadar scroll yap (javascriptexecuter)
+        element.click();           //        click
     }
 
-    public void verifyContainsTextFunction(WebElement element, String text) {
-
-        waitUntilVisible(element);
-        scrollToElement(element);
-        wait.until(ExpectedConditions.textToBePresentInElement(element, text));
-        Assert.assertTrue(element.getText().toLowerCase().contains(text.toLowerCase()), "The text could not be find");
-       // new Actions(GWD.getDriver()).sendKeys(Keys.ESCAPE).perform();
-    }
-
-    public void waitUntilLoading() {
-        wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"), 0));
-    }
-
-    public void waitUntilVisible(WebElement element) {
+    public void waitUntilVisible(WebElement element)
+    {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void waitUntilClickable(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    public void scrollToElement(WebElement element) {
-
-        JavascriptExecutor js = (JavascriptExecutor) GWD.getDriver();
+    public void scrollToelement(WebElement element)
+    {
+        JavascriptExecutor js=(JavascriptExecutor) GeneralWD.getDriver();
         js.executeScript("arguments[0].scrollIntoView();", element);
     }
 
+    public void waitUntilClickable(WebElement element)
+    {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void verifyContainsTextFunction(WebElement element, String value)
+    {
+//        waitUntilVisible(element); // gözükene kadar bekle
+        wait.until(ExpectedConditions.textToBePresentInElement(element, value)); // success için çalışıyor
+        Assert.assertTrue(element.getText().toLowerCase().contains(value.toLowerCase()),"The text you searched could'nt be find");
+        new Actions(GeneralWD.getDriver()).sendKeys(Keys.ESCAPE).perform(); // açık dialog kutusu varsa kapansın
+    }
+
+    public void waitUntilLoading()
+    {
+        wait.until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("fuse-progress-bar > *"), 0));
+        // progressbar ın çocukları o olana kadar bekle
+    }
 
 }

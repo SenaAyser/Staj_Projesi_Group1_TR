@@ -1,7 +1,7 @@
 package StepDefinitions;
 
 import Pages.DialogContent;
-import Utilities.GWD;
+import Utilities.GeneralWD;
 import io.cucumber.java.en.*;
 
 
@@ -10,8 +10,8 @@ public class _00_LoginSteps {
 
     @Given("Navigate to Mersys")
     public void navigateToMersys() {
-        GWD.getDriver().manage().window().maximize();
-        GWD.getDriver().get("https://test.mersys.io/");
+        GeneralWD.getDriver().manage().window().maximize();
+        GeneralWD.getDriver().get("https://test.mersys.io/");
     }
 
     @When("Admin entered valid username and valid password and clicked Login Button")

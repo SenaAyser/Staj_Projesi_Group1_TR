@@ -1,5 +1,6 @@
 package StepDefinitions;
 
+import Utilities.GeneralWD;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -9,7 +10,7 @@ public class Hooks {
 
     @Before
     public void before() {
-        System.out.println(senaryo başladı mı);
+        System.out.println("senaryo basladi");
 
     }
 
@@ -17,7 +18,7 @@ public class Hooks {
     public void after(Scenario senaryo) {
 
         System.out.println("Senaryo bitti");
-        //GWD.quitDriver();
+        GeneralWD.quitDriver();
 
     }
 }
